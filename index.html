@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vlad Benescu &amp; Alexandra Mihaela Dancs</title>
+<meta name="description" content="A contemporary dance duo exploring relationships, somatic movement, and the influence of digital culture on artistic expression.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ RESET & BASE ============ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f0e8;
+    --bg-soft: #ebe5d8;
+    --ink: #1a1a1a;
+    --ink-soft: #5a5a5a;
+    --ink-faint: #8a8a8a;
+    --accent: #c2410c;
+    --line: rgba(26, 26, 26, 0.12);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ============ INTRO OVERLAY ============ */
+  #intro {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    transition: opacity 1.2s ease, visibility 1.2s ease;
+  }
+
+  #intro.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .intro-names {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    max-width: 1100px;
+  }
+
+  .intro-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .intro-line span {
+    display: inline-block;
+    transform: translateY(110%);
+    opacity: 0;
+    animation: revealUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .intro-line:nth-child(1) span { animation-delay: 0.3s; }
+  .intro-line:nth-child(2) span { animation-delay: 0.6s; }
+  .intro-line:nth-child(3) span { animation-delay: 0.9s; }
+
+  @keyframes revealUp {
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .intro-amp {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .intro-sub {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    opacity: 0;
+    animation: fadeIn 1s ease 1.4s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* ============ HEADER ============ */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+    color: #fff;
+    transform: translateY(-100%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  header.visible { transform: translateY(0); }
+
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  nav {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  nav a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+
+  nav a:hover { opacity: 0.6; }
+
+  /* ============ SECTIONS ============ */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 1.6vw, 1.35rem);
+    max-width: 700px;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  .hero-tagline-large {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    max-width: 1100px;
+    color: var(--ink);
+    margin-top: 1rem;
+  }
+
+  .hero-tagline-large em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ============ MARQUEE ============ */
+  .marquee {
+    padding: 4rem 0;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 4rem 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: scroll 40s linear infinite;
+    white-space: nowrap;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .marquee-dot {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ============ ABOUT ============ */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 800px) {
+    .about { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .about-text p {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: var(--ink-soft);
+  }
+
+  .about-text p:first-child {
+    font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+    color: var(--ink);
+  }
+
+  .about-text em {
+    font-style: italic;
+    color: var(--ink);
+    font-family: var(--font-serif);
+  }
+
+  /* ============ WORK ============ */
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .work-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .work-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ============ PIECE ============ */
+  .piece {
+    border-top: 1px solid var(--line);
+    padding-top: 4rem;
+    margin-bottom: 6rem;
+  }
+
+  .piece-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    align-items: end;
+  }
+
+  @media (max-width: 800px) {
+    .piece-header { grid-template-columns: 1fr; gap: 1rem; }
+  }
+
+  .piece-meta {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .piece-name {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .piece-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .piece-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 800px) {
+    .piece-content { grid-template-columns: 1fr; }
+  }
+
+  .piece-description p {
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: var(--ink-soft);
+  }
+
+  .piece-description p:first-child {
+    color: var(--ink);
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  }
+
+  .piece-credits {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+
+  .piece-credits dt {
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+  }
+
+  .piece-credits dt:first-child { margin-top: 0; }
+
+  .piece-credits dd {
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  /* ============ VIDEO ============ */
+  .video-section {
+    margin: 4rem 0;
+  }
+
+  .video-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.5rem;
+  }
+
+  .video-shorts {
+    display: flex;
+    justify-content: center;
+  }
+
+  .video-shorts-wrap {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 9/16;
+    position: relative;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .video-shorts-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ============ GALLERY ============ */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    margin: 4rem 0;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    background: var(--bg-soft);
+    position: relative;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+
+  /* Asymmetric grid for triluREELu preview (4 photos) */
+  .g1 { grid-column: 1 / 8; aspect-ratio: 16/10; }
+  .g2 { grid-column: 8 / 13; aspect-ratio: 4/5; }
+  .g6 { grid-column: 1 / 7; aspect-ratio: 3/2; }
+  .g7 { grid-column: 7 / 13; aspect-ratio: 3/2; }
+
+  @media (max-width: 800px) {
+    .gallery { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .gallery-item { grid-column: auto !important; aspect-ratio: 1/1 !important; }
+  }
+
+  /* Somatic Freaks gallery preview (3 photos) — cinematic */
+  .sg1 { grid-column: 1 / 13; aspect-ratio: 21/9; }
+  .sg2 { grid-column: 1 / 7; aspect-ratio: 3/2; }
+  .sg3 { grid-column: 7 / 13; aspect-ratio: 3/2; }
+
+  /* Night Shift gallery preview (3 photos) — moody nocturnal */
+  .ng1 { grid-column: 1 / 6; aspect-ratio: 2/3; }
+  .ng2 { grid-column: 6 / 13; aspect-ratio: 4/3; }
+  .ng3 { grid-column: 1 / 13; aspect-ratio: 21/9; }
+
+  /* Luați de VAL...s gallery preview (3 photos) — poster + chandelier + surf */
+  .vg1 { grid-column: 1 / 6; aspect-ratio: 5/7; }
+  .vg2 { grid-column: 6 / 10; aspect-ratio: 5/7; }
+  .vg3 { grid-column: 10 / 13; aspect-ratio: 3/5; }
+
+  @media (max-width: 800px) {
+    .vg1, .vg2, .vg3 { aspect-ratio: 4/5 !important; }
+  }
+
+  /* ============ GALLERY ACTIONS ============ */
+  .gallery-actions {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 4rem;
+  }
+
+  .view-all-btn {
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    padding: 1rem 2.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .view-all-btn:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .view-all-btn .arrow {
+    transition: transform 0.3s;
+    font-size: 1.1rem;
+  }
+
+  .view-all-btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* ============ LIGHTBOX ============ */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.96);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    color: #fff;
+  }
+
+  .lightbox-title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .lightbox-counter {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .lightbox-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+  }
+
+  .lightbox-close:hover { opacity: 0.6; }
+
+  .lightbox-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 2rem 3rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+  }
+
+  .lightbox-body::-webkit-scrollbar { width: 6px; }
+  .lightbox-body::-webkit-scrollbar-track { background: transparent; }
+  .lightbox-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+  .lightbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .lightbox-grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s, filter 0.3s;
+    cursor: zoom-in;
+  }
+
+  .lightbox.open .lightbox-grid img {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .lightbox-grid img:nth-child(1) { transition-delay: 0.1s; }
+  .lightbox-grid img:nth-child(2) { transition-delay: 0.15s; }
+  .lightbox-grid img:nth-child(3) { transition-delay: 0.2s; }
+  .lightbox-grid img:nth-child(4) { transition-delay: 0.25s; }
+  .lightbox-grid img:nth-child(5) { transition-delay: 0.3s; }
+  .lightbox-grid img:nth-child(6) { transition-delay: 0.35s; }
+  .lightbox-grid img:nth-child(7) { transition-delay: 0.4s; }
+  .lightbox-grid img:nth-child(8) { transition-delay: 0.45s; }
+  .lightbox-grid img:nth-child(n+9) { transition-delay: 0.5s; }
+
+  .lightbox-grid img:hover { filter: brightness(1.08); }
+
+  body.lightbox-open { overflow: hidden; }
+
+  /* ============ VENUES ============ */
+  .venues {
+    padding: 3rem 0;
+    margin: 4rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 3rem;
+    margin-top: 2rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    font-weight: 300;
+    color: var(--ink-soft);
+  }
+
+  .venues-grid span {
+    position: relative;
+  }
+
+  .venues-grid span:not(:last-child)::after {
+    content: '•';
+    position: absolute;
+    right: -1.7rem;
+    color: var(--accent);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 6rem 2rem 3rem;
+    margin-top: 6rem;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .footer-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    max-width: 800px;
+  }
+
+  .footer-title em {
+    font-style: italic;
+    color: #ff7a4d;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .footer-block h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(244, 240, 232, 0.5);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .footer-block a {
+    color: var(--bg);
+    text-decoration: none;
+    display: block;
+    padding: 0.2rem 0;
+    transition: color 0.3s, transform 0.3s;
+    font-size: 1rem;
+  }
+
+  .footer-block a:hover {
+    color: #ff7a4d;
+    transform: translateX(4px);
+  }
+
+  .footer-bottom {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: rgba(244, 240, 232, 0.5);
+  }
+
+  /* ============ SCROLL HINT ============ */
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    opacity: 0;
+    animation: fadeIn 1s ease 2s forwards;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: var(--ink-faint);
+    margin: 0.8rem auto 0;
+    animation: scrollLine 2s ease-in-out infinite;
+    transform-origin: top;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.3; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- INTRO OVERLAY -->
+<div id="intro">
+  <h1 class="intro-names">
+    <span class="intro-line"><span>Vlad Benescu</span></span>
+    <span class="intro-line"><span class="intro-amp">&amp;</span></span>
+    <span class="intro-line"><span>Alexandra Mihaela Dancs</span></span>
+  </h1>
+  <p class="intro-sub">Contemporary dance duo</p>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="logo">V.B. &amp; A.M.D.</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <p class="hero-eyebrow reveal">Performance &middot; Contemporary dance</p>
+  <p class="hero-tagline-large reveal">
+    A performance duo exploring the dynamics of <em>relationships</em>, somatic movement, and the influence of <em>digital culture</em> on artistic expression.
+  </p>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item">
+      <span>Contemporary dance</span><span class="marquee-dot">&bull;</span>
+      <span>Somatic movement</span><span class="marquee-dot">&bull;</span>
+      <span>Proprioception</span><span class="marquee-dot">&bull;</span>
+      <span>Digital culture</span><span class="marquee-dot">&bull;</span>
+      <span>Performance</span><span class="marquee-dot">&bull;</span>
+      <span>Contemporary dance</span><span class="marquee-dot">&bull;</span>
+      <span>Somatic movement</span><span class="marquee-dot">&bull;</span>
+      <span>Proprioception</span><span class="marquee-dot">&bull;</span>
+      <span>Digital culture</span><span class="marquee-dot">&bull;</span>
+      <span>Performance</span><span class="marquee-dot">&bull;</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about reveal">
+    <p class="section-label">About</p>
+    <div class="about-text">
+      <p>
+        Alexandra Mihaela Dancs and Vlad Benescu are independent artists with diverse backgrounds in contemporary dance and the performing arts who began collaborating in 2022.
+      </p>
+      <p>
+        Their work choreographically explores the dynamics of relationships, balance, somatic movement, and the influence of digital culture on artistic expression, through interdisciplinary formats. Their creations have been presented in contemporary dance and performance spaces, contexts, and festivals such as Galateca, NAG at /SAC @ Malmaison, Casa Kerim, TNB, Control Club, the National Theatre Festival, Bucharest Fringe Festival, Dans.Context.Showcase, and Neo Art Connect Festival.
+      </p>
+      <p>
+        Together they have created the performances <em>Luați de VAL...s</em> (2022), <em>Somatic Freaks 1.0</em> (2023), <em>Tura de noapte / Night Shift</em> (2024), <em>Somatic Freaks &mdash; Proprioception Revolution</em> (2024), and <em>triluREELu</em> (2025).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header reveal">
+    <h2 class="work-title">Selected <em>work</em></h2>
+    <p class="section-label">2022 &mdash; 2025</p>
+  </div>
+
+  <!-- triluREELu -->
+  <article class="piece reveal" id="trilureel">
+    <div class="piece-header">
+      <div>
+        <p class="piece-meta">2025 &middot; 70 min &middot; Premiere</p>
+      </div>
+      <h3 class="piece-name"><em>tril</em>uREEL<em>u</em></h3>
+    </div></div>
+
+    <div class="piece-content">
+      <div class="piece-description">
+        <p>
+          <em>triluREELu</em> is the plunge of two performers into a phone locked on the most diverse reels &mdash; from viral dances to motivational speeches. As they "swim" through the virtual immensity, the show becomes absurdly comic and technologically complex: the feed is on stage, digital scenography and bodies interact in hybrid 3D reels, captions and crowded music become language, vanity and rhythm grow into a frenzy.
+        </p>
+        <p>
+          Ephemerality, fragmented and random realities, high-speed stimuli, plus other dynamics of reel culture, are reinterpreted and recontextualized with humor and irony, in a choreographic-performative-multimedia puzzle that puts a finger on the screen of society.
+        </p>
+        <p>
+          <em>triluREELu</em> is part of <em>The Body In REEL Time</em>, a project of Art No More Association, conceived by Vlad Benescu and Alexandra Mihaela Dancs, co-financed by AFCN in 2025, which choreographically explores corporeality in the era of reels and examines, with humor and a critical eye, a world full of virtual dopamine and fingers tired of scrolling.
+        </p>
+      </div>
+
+      <div class="piece-credits">
+        <dl>
+          <dt>Concept, choreography, performance</dt>
+          <dd>Vlad Benescu &amp; Alexandra Mihaela Dancs</dd>
+
+          <dt>Dramaturgy consultant</dt>
+          <dd>Mihai Ivașcu</dd>
+
+          <dt>Multimedia</dt>
+          <dd>Alexandru Claudiu Maxim</dd>
+
+          <dt>Interaction design</dt>
+          <dd>Cristian Iordache / ygreq</dd>
+
+          <dt>Sound design</dt>
+          <dd>Lala Mișosniky</dd>
+
+          <dt>Mastering</dt>
+          <dd>Dan Bărbulescu</dd>
+
+          <dt>Light design</dt>
+          <dd>Vlad Benescu</dd>
+
+          <dt>Graphics</dt>
+          <dd>Ada Moisă / D'Ada Collage</dd>
+
+          <dt>Premiere</dt>
+          <dd>October 25, 2025 &middot; National Centre for Dance Bucharest</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="gallery-item g1"><img src="images/tr01.jpg" alt="triluREELu performance" loading="lazy"></div>
+      <div class="gallery-item g2"><img src="images/tr06.jpg" alt="triluREELu performance" loading="lazy"></div>
+      <div class="gallery-item g6"><img src="images/tr07.jpg" alt="triluREELu performance" loading="lazy"></div>
+      <div class="gallery-item g7"><img src="images/tr08.jpg" alt="triluREELu performance" loading="lazy"></div>
+    </div>
+
+    <div class="gallery-actions">
+      <button class="view-all-btn" onclick="openLightbox('trilureel-gallery')">
+        View all photos
+        <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+
+    <!-- Video featured -->
+    <div class="video-section">
+      <p class="video-label">Trailer</p>
+      <div class="video-shorts">
+        <div class="video-shorts-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/FfOMr-Ynoxg"
+            title="triluREELu trailer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+
+    <!-- VENUES -->
+    <div class="venues reveal">
+      <p class="section-label">Presented at</p>
+      <div class="venues-grid">
+        <span>National Centre for Dance Bucharest</span>
+        <span>Teatrul Masca</span>
+        <span>/SAC @ Malmaison</span>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- Somatic Freaks — Proprioception Revolution -->
+  <article class="piece reveal" id="somatic-freaks">
+    <div class="piece-header">
+      <div>
+        <p class="piece-meta">2024 &middot; Durational performance &middot; 3 hours</p>
+      </div>
+      <h3 class="piece-name">Somatic Freaks<br><em>Proprioception Revolution</em></h3>
+    </div><p class="video-label">Full performance</p>
+      <div style="max-width: 900px; margin: 0 auto;">
+        <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/Eefr8DmpzyM"
+            title="Somatic Freaks — Proprioception Revolution"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece-content">
+      <div class="piece-description">
+        <p>
+          The performative installation proposed by Vlad Benescu and Alexandra Mihaela Dancs is based on the study of <em>proprioception</em> and the methods to improve it through balance training, from a choreographic perspective.
+        </p>
+        <p>
+          For three hours, the two performers explore the body's response to imbalance through interaction with a large tandem balancing apparatus. Their physicality adapts to its specific mechanics in a choreography of subtle movements capable of transforming the environment in which they occur. An endless dialog is thus created between the ephemerality of stability and the unpredictability of moments of unbalance.
+        </p>
+        <p>
+          This durational performance can be seen as a laboratory in which success and failure structure the experience, as a meditation on (re)finding balance in an unstable world, and as a study of the dynamics of the relationship between the two performers &mdash; in which trust, negotiation, support, mutual awareness, constant adaptation, resilience, and the power to start all over again are essential to maintain harmony in a continuously changing environment.
+        </p>
+      </div>
+
+      <div class="piece-credits">
+        <dl>
+          <dt>Concept, choreography, performance</dt>
+          <dd>Alexandra Mihaela Dancs &amp; Vlad Benescu</dd>
+
+          <dt>Sound design</dt>
+          <dd>Lala Mișosniky</dd>
+
+          <dt>Format</dt>
+          <dd>Performative installation &middot; durational</dd>
+
+          <dt>Duration</dt>
+          <dd>3 hours</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- GALLERY Somatic Freaks -->
+    <div class="gallery sf-gallery">
+      <div class="gallery-item sg1"><img src="images/sf01.jpg" alt="Somatic Freaks performance" loading="lazy"></div>
+      <div class="gallery-item sg2"><img src="images/sf07.jpg" alt="Somatic Freaks performance" loading="lazy"></div>
+      <div class="gallery-item sg3"><img src="images/sf02.jpg" alt="Somatic Freaks performance" loading="lazy"></div>
+    </div>
+
+    <div class="gallery-actions">
+      <button class="view-all-btn" onclick="openLightbox('somatic-gallery')">
+        View all photos
+        <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+
+    <!-- Video featured -->
+    <div class="video-section">
+      <p class="video-label">Trailer</p>
+      <div style="max-width: 900px; margin: 0 auto 2.5rem;">
+        <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/juV1AWBRH90"
+            title="Somatic Freaks — Proprioception Revolution trailer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+
+
+  </article>
+
+  <!-- Night Shift -->
+  <article class="piece reveal" id="night-shift">
+    <div class="piece-header">
+      <div>
+        <p class="piece-meta">2024 &middot; 70 min &middot; Theatre-dance hybrid</p>
+      </div>
+      <h3 class="piece-name">Tura de noapte<br><em>Night Shift</em></h3>
+    </div><p class="video-label">Full performance</p>
+      <div style="max-width: 900px; margin: 0 auto;">
+        <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/k4FiKRB5h24"
+            title="Night Shift full performance"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece-content">
+      <div class="piece-description">
+        <p>
+          Mircea and Irina, the two characters of the piece, meet and fall in love when neither of them has anything left to lose. Caught in a borderline situation, they live the typical "one-night stand" on an atypical night &mdash; one in which there is no longer present, past, or future, life or death, dream or reality, but only doors opened between them all, corridors that become pretexts for melancholic, existentialist, and comic thematic tensions.
+        </p>
+        <p>
+          The lines are music, the light is disco, and the bodies pulsate on an army of techno bass, creating a hypnotic performative hybrid that reveals itself little by little. Prepare yourself for a <em>theatre-danceophonic</em> show &mdash; a moving sensation, between adrenaline and emotion, a story in which we can all recognize ourselves, but where nothing is what it seems.
+        </p>
+      </div>
+
+      <div class="piece-credits">
+        <dl>
+          <dt>Concept, artistic direction, choreography &amp; performance</dt>
+          <dd>Alexandra Mihaela Dancs &amp; Vlad Benescu</dd>
+
+          <dt>Dramaturgy</dt>
+          <dd>Mihai Ivașcu</dd>
+
+          <dt>Light design</dt>
+          <dd>Vlad Benescu</dd>
+
+          <dt>Sound design</dt>
+          <dd>Lala Mișosniky</dd>
+
+          <dt>Mastering</dt>
+          <dd>Studio 48-50</dd>
+
+          <dt>Voice interventions</dt>
+          <dd>Jean-Lorin Sterian &amp; Robert Bălan</dd>
+
+          <dt>Co-production</dt>
+          <dd>Hearth Association / Casa Kerim, Homemade Culture</dd>
+
+          <dt>Duration</dt>
+          <dd>70 minutes</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- GALLERY Night Shift -->
+    <div class="gallery ns-gallery">
+      <div class="gallery-item ng1"><img src="images/n4.jpg" alt="Night Shift performance" loading="lazy"></div>
+      <div class="gallery-item ng2"><img src="images/n6.jpg" alt="Night Shift performance" loading="lazy"></div>
+      <div class="gallery-item ng3"><img src="images/n3.jpg" alt="Night Shift performance" loading="lazy"></div>
+    </div>
+
+    <div class="gallery-actions">
+      <button class="view-all-btn" onclick="openLightbox('nightshift-gallery')">
+        View all photos
+        <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+
+    <!-- Video featured -->
+    <div class="video-section">
+      <p class="video-label">Trailer</p>
+      <div style="max-width: 900px; margin: 0 auto 2.5rem;">
+        <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/16EZD44m76g"
+            title="Night Shift trailer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+
+
+  </article>
+
+  <!-- Luați de VAL...s -->
+  <article class="piece reveal" id="luati-de-val">
+    <div class="piece-header">
+      <div>
+        <p class="piece-meta">2022 &middot; 70 min &middot; Site-specific &middot; Debut</p>
+      </div>
+      <h3 class="piece-name">Luați de <em>VAL...s</em></h3>
+    </div>
+
+    <div class="piece-content">
+      <div class="piece-description">
+        <p>
+          <em>Luați de VAL...s</em> (2022) is the first dance performance created by Alexandra Mihaela Dancs and Vlad Benescu &mdash; performed at Casa Kerim, inspired by its architecture and history. Beyond the house on Parfumului 19, the creative process was nourished during the summer by working with the waves of the Black Sea, through long surfing sessions. Being "taken by the wave" became, for them, artistic practice.
+        </p>
+        <p>
+          Closeness and conflict. Negotiation and complicity. Tenderness and risk. Chaos. Energy.
+        </p>
+        <p style="font-style: italic; font-family: var(--font-serif); color: var(--ink); padding: 1rem 1.2rem; border-left: 2px solid var(--accent); margin-top: 1.5rem; line-height: 1.6;">
+          "Want me to throw you a 'hâț'? When I come back from the courtyard, we put our heads together. Are we doing the same or completing each other? With the smell we reach the hair. Your costal rebord is comfortable. You play with the thread. I keep my eyes closed. I saw that you keep your eyes closed. You have a vein like a circle. I see you through tears. Cauliflower or mici? Medicine. We don't tremble from the start, we inspect ourselves and 'hâț'! On the rocking floor pieces. Let me tie your shoelace. Because I no longer see you, the way I move changes. I relax my palate and feel like yawning. We contemplate the trash. You cover me like a blanket. Two strands plus one or the other way around? May I touch the back of your knee? It's more than falling in love &mdash; it's melting into the other."
+          <br><span style="font-style: normal; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint); display: block; margin-top: 0.8rem;">&mdash; from the working journal, 2022</span>
+        </p>
+        <p>
+          The dynamics between us have their own initiative, their own path, they take us where they want, just like the waves that always seek the shore &mdash; not to end there, but to continually reform. We chose to throw ourselves in and let ourselves be carried.
+        </p>
+        <p>
+          <em>Luați de VAL...s</em> premiered in October 2022 at Casa Kerim &mdash; Hearth, where it continues to be presented as part of the Hearth season. In 2023 it was part of CNDB Itinerant (National Centre for Dance Bucharest), and in 2024 it was invited to Bucharest Collage Festival.
+        </p>
+      </div>
+
+      <div class="piece-credits">
+        <dl>
+          <dt>Concept, choreography, performance</dt>
+          <dd>Alexandra Mihaela Dancs &amp; Vlad Benescu</dd>
+
+          <dt>Sound design</dt>
+          <dd>Lala Misosniky</dd>
+
+          <dt>Production</dt>
+          <dd>Independent production with support from Hearth Association</dd>
+
+          <dt>Poster &amp; photography</dt>
+          <dd>Mihai Smeu</dd>
+
+          <dt>Premiere</dt>
+          <dd>October 2022 &middot; Casa Kerim, Bucharest</dd>
+
+          <dt>Duration</dt>
+          <dd>70 minutes</dd>
+
+          <dt>Audience capacity</dt>
+          <dd>20 seats</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- GALLERY Luați de VAL...s -->
+    <div class="gallery val-gallery">
+      <div class="gallery-item vg1"><img src="images/v01.jpg" alt="Luați de VAL...s — poster collage" loading="lazy"></div>
+      <div class="gallery-item vg2"><img src="images/v02.jpg" alt="Luați de VAL...s — chandelier" loading="lazy"></div>
+      <div class="gallery-item vg3"><img src="images/v03.jpg" alt="Luați de VAL...s — surfing at the Black Sea" loading="lazy"></div>
+    </div>
+
+    <div class="gallery-actions">
+      <button class="view-all-btn" onclick="openLightbox('val-gallery')">
+        View all photos
+        <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+
+  </article>
+
+  <!-- Other works -->
+  <article class="piece reveal">
+    <div class="piece-header">
+      <div><p class="piece-meta">2006 &mdash; 2023</p></div>
+      <h3 class="piece-name">Earlier <em>works</em></h3>
+    </div>
+
+    <div class="piece-content">
+      <div class="piece-description">
+        <p style="font-size: clamp(1.05rem, 1.3vw, 1.2rem); color: var(--ink);">
+          <em>Somatic Freaks 1.0</em> &middot; 2023
+        </p>
+        <p>
+          Their somatic practice has made its way into everything that involves movement &mdash; domestic, sporting, or artistic. They filter everything through it, the practice becoming a permanent process of training, maintenance, and recovery that constantly evolves through ongoing recycling of somatic sensations and knowledge. Not an obsession, but from the outside, the two could appear as Somatic Freaks.
+        </p>
+        <p>
+          <em>Somatic Freaks 1.0</em> reveals an internal reality difficult to perceive from the outside. The two continuously describe what they do and feel happening inside with their musculoskeletal structures, entering a dialogue generated by conscious movement and the verbalization of every detail observed physically.
+        </p>
+        <p style="font-size: 0.85rem; color: var(--ink-faint); margin-top: 1.5rem;">
+          Concept, choreography, performance: Alexandra Mihaela Dancs &amp; Vlad Benescu &middot; Independent production, supported by Homemade Culture &middot; Premiered May 2023, presented at CNDB &mdash; Stagiune la Mansardă, Fictions, my body II.
+        </p>
+      </div>
+
+      <div class="piece-credits">
+        <img src="images/sf1_0.jpg" alt="Somatic Freaks 1.0" style="width: 100%; height: auto; border-radius: 4px;" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Solo & collaborations list -->
+    <div style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--line);">
+      <p class="section-label" style="margin-bottom: 1.5rem;">Alexandra Mihaela Dancs &mdash; solo &amp; collaborations</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem 2rem; font-size: 0.9rem; line-height: 1.6;">
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">DREAMZ</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2024 &middot; movement direction</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">LIZICA</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2023 &middot; choreography &amp; performance</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">FRICI</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2023 &middot; choreography</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">În căutarea dansului</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2022 &middot; solo</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">(anti) aging dupa 10 ani</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2011 / 2021 &middot; with Mădălina Dan</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">ALTER</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2021 &middot; hybrid intervention</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Attention: River Residents!</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2021 &middot; with Urvi Vora</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Under the Influence</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2020 &middot; live dance film</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Teren de Dans</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2017 &middot; one to one &amp; one to all</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Coregrafie de Grup</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2015 &middot; 10 performers</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Out of Order</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2013 &middot; solo</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Lulu's Room</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2009 &middot; solo</p>
+        </div>
+        <div>
+          <p style="color: var(--ink); font-family: var(--font-serif); font-style: italic;">Reprogramare</p>
+          <p style="color: var(--ink-faint); font-size: 0.8rem;">2006 &middot; solo</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Awards -->
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line);">
+      <p class="section-label" style="margin-bottom: 1.2rem;">Awards</p>
+      <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7;">
+        <strong style="color: var(--ink); font-weight: 500;">Excellence Award</strong> of the National Centre for Dance Bucharest, 2014 &mdash; for her contribution to the development of contemporary dance.
+      </p>
+      <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7; margin-top: 0.6rem;">
+        <strong style="color: var(--ink); font-weight: 500;">Special Jury Prize for bodily expressiveness</strong> &mdash; for the role of Irina in <em>Tura de noapte</em>, Bucharest Fringe 2024.
+      </p>
+    </div>
+
+  </article>
+
+</section>
+
+<!-- ============ LIGHTBOXES ============ -->
+<div class="lightbox" id="trilureel-gallery" role="dialog" aria-modal="true" aria-label="triluREELu gallery">
+  <div class="lightbox-header">
+    <span class="lightbox-title"><em>triluREELu</em> &middot; <span class="lightbox-counter">13 photos</span></span>
+    <button class="lightbox-close" onclick="closeLightbox('trilureel-gallery')" aria-label="Close gallery">Close &times;</button>
+  </div>
+  <div class="lightbox-body">
+    <div class="lightbox-grid">
+      <img src="images/tr01.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr02.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr03.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr04.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr05.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr06.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr07.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr08.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr09.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr10.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr11.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr12.jpg" alt="triluREELu" loading="lazy">
+      <img src="images/tr13.jpg" alt="triluREELu" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="nightshift-gallery" role="dialog" aria-modal="true" aria-label="Night Shift gallery">
+  <div class="lightbox-header">
+    <span class="lightbox-title">Tura de noapte &middot; <em>Night Shift</em> &middot; <span class="lightbox-counter">8 photos</span></span>
+    <button class="lightbox-close" onclick="closeLightbox('nightshift-gallery')" aria-label="Close gallery">Close &times;</button>
+  </div>
+  <div class="lightbox-body">
+    <div class="lightbox-grid">
+      <img src="images/n1.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n2.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n3.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n4.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n5.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n6.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n7.jpg" alt="Night Shift" loading="lazy">
+      <img src="images/n8.jpg" alt="Night Shift" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="val-gallery" role="dialog" aria-modal="true" aria-label="Luați de VAL...s gallery">
+  <div class="lightbox-header">
+    <span class="lightbox-title">Luați de <em>VAL...s</em> &middot; <span class="lightbox-counter">10 photos</span></span>
+    <button class="lightbox-close" onclick="closeLightbox('val-gallery')" aria-label="Close gallery">Close &times;</button>
+  </div>
+  <div class="lightbox-body">
+    <div class="lightbox-grid">
+      <img src="images/v01.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v02.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v03.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v04.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v05.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v06.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v07.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v08.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v09.jpg" alt="Luați de VAL...s" loading="lazy">
+      <img src="images/v10.jpg" alt="Luați de VAL...s" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="somatic-gallery" role="dialog" aria-modal="true" aria-label="Somatic Freaks gallery">
+  <div class="lightbox-header">
+    <span class="lightbox-title">Somatic Freaks &middot; <em>Proprioception Revolution</em> &middot; <span class="lightbox-counter">10 photos</span></span>
+    <button class="lightbox-close" onclick="closeLightbox('somatic-gallery')" aria-label="Close gallery">Close &times;</button>
+  </div>
+  <div class="lightbox-body">
+    <div class="lightbox-grid">
+      <img src="images/sf01.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf02.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf03.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf04.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf05.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf06.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf07.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf08.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf09.jpg" alt="Somatic Freaks" loading="lazy">
+      <img src="images/sf10.jpg" alt="Somatic Freaks" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <h2 class="footer-title reveal">
+      Let's get <em>in touch</em>.
+    </h2>
+
+    <div class="footer-grid">
+      <div class="footer-block">
+        <h4>Alexandra Mihaela Dancs</h4>
+        <a href="mailto:shoarlece@gmail.com">shoarlece@gmail.com</a>
+        <a href="tel:+40722362803">+40 722 362 803</a>
+      </div>
+      <div class="footer-block">
+        <h4>Vlad Benescu</h4>
+        <a href="mailto:vladbenescu@gmail.com">vladbenescu@gmail.com</a>
+      </div>
+      <div class="footer-block">
+        <h4>Based in</h4>
+        <p style="color: var(--bg); margin: 0; padding: 0.2rem 0;">Bucharest, Romania</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2025 Vlad Benescu &amp; Alexandra Mihaela Dancs</span>
+      <span>All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============ INTRO FADE ============
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById('intro').classList.add('fade-out');
+      document.getElementById('header').classList.add('visible');
+    }, 2800);
+  });
+
+  // ============ SCROLL REVEAL ============
+  var revealEls = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  revealEls.forEach(function(el) { observer.observe(el); });
+
+  // ============ HERO REVEAL (trigger on intro fade) ============
+  setTimeout(function() {
+    document.querySelectorAll('#hero .reveal').forEach(function(el) {
+      el.classList.add('in-view');
+    });
+  }, 3000);
+
+  // ============ LIGHTBOX ============
+  function openLightbox(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.classList.add('lightbox-open');
+  }
+
+  function closeLightbox(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.classList.remove('lightbox-open');
+  }
+
+  // Close lightbox with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.lightbox.open').forEach(function(lb) {
+        lb.classList.remove('open');
+      });
+      document.body.classList.remove('lightbox-open');
+    }
+  });
+
+  // Close lightbox by clicking outside content
+  document.querySelectorAll('.lightbox').forEach(function(lb) {
+    lb.addEventListener('click', function(e) {
+      if (e.target === lb || e.target.classList.contains('lightbox-body')) {
+        lb.classList.remove('open');
+        document.body.classList.remove('lightbox-open');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
